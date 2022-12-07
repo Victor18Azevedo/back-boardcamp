@@ -7,6 +7,7 @@ export async function gamesList(req, res) {
   const { name } = req.query;
 
   try {
+    // TODO: query with JOIN categoryName
     if (name) {
       const nameStart = name + "%";
       const games = await connection.query(
