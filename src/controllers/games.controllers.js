@@ -7,17 +7,18 @@ export async function gamesList(req, res) {
   const { name } = req.query;
 
   try {
-    // TODO: query with JOIN categoryName
     if (name) {
       const nameStart = name + "%";
       const games = await connection.query(
-        "SELECT * FROM games WHERE name LIKE $1",
+        'SELECT *, categories.name AS "categoryName" FROM categories JOIN games ON (games."categoryId" = categories.id) WHERE games.name LIKE $1',
         [nameStart]
       );
       return res.send(games.rows);
     }
 
-    const games = await connection.query("SELECT * FROM games");
+    const games = await connection.query(
+      'SELECT *, categories.name AS "categoryName" FROM categories JOIN games ON (games."categoryId" = categories.id)'
+    );
     return res.send(games.rows);
   } catch (error) {
     console.log(
