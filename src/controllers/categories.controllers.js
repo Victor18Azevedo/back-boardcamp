@@ -14,3 +14,22 @@ export async function categoriesList(req, res) {
     return res.sendStatus(500);
   }
 }
+
+export async function categoriesInsert(req, res) {
+  const { name } = req.category;
+  try {
+    const result = await connection.query(
+      "INSERT INTO categories (name) SELECT $1 WHERE NOT EXISTS (SELECT name FROM categories WHERE name = $1)",
+      [name]
+    );
+    if (result.rowCount === 0) {
+      return res.sendStatus(409);
+    }
+    res.sendStatus(201);
+  } catch (error) {
+    console.log(
+      chalk.redBright(dayjs().format("YYYY-MM-DD HH:mm:ss"), error.message)
+    );
+    return res.sendStatus(500);
+  }
+}
