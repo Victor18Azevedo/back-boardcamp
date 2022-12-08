@@ -51,10 +51,9 @@ export async function customerInsert(req, res) {
   const { name, phone, cpf, birthday } = req.customer;
 
   try {
-    // TODO: Avoid duplicate cpf customer
-
     const result = await connection.query(
-      "INSERT INTO customers ( name, phone, cpf, birthday ) VALUES ($1, $2, $3, $4)",
+      "INSERT INTO customers (name, phone, cpf, birthday)" +
+        "SELECT $1, $2, $3::VARCHAR, $4 WHERE NOT EXISTS (SELECT cpf FROM customers WHERE cpf = $3)",
       [name, phone, cpf, birthday]
     );
 
