@@ -8,10 +8,9 @@ export async function customersList(req, res) {
 
   try {
     if (cpf) {
-      const cpfStart = cpf + "%";
       const customers = await connection.query(
         "SELECT * FROM customers WHERE cpf LIKE $1",
-        [cpfStart]
+        [cpf.concat("%")]
       );
       return res.send(customers.rows);
     }
