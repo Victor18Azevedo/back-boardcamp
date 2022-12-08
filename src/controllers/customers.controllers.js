@@ -9,13 +9,15 @@ export async function customersList(req, res) {
   try {
     if (cpf) {
       const customers = await connection.query(
-        "SELECT * FROM customers WHERE cpf LIKE $1",
+        "SELECT *, birthday::text FROM customers WHERE cpf LIKE $1",
         [cpf.concat("%")]
       );
       return res.send(customers.rows);
     }
 
-    const customers = await connection.query("SELECT * FROM customers");
+    const customers = await connection.query(
+      "SELECT *, birthday::text FROM customers"
+    );
     return res.send(customers.rows);
   } catch (error) {
     console.log(
@@ -30,7 +32,7 @@ export async function getCustomer(req, res) {
 
   try {
     const customer = await connection.query(
-      "SELECT * FROM customers WHERE id=$1",
+      "SELECT *, birthday::text FROM customers WHERE id = $1",
       [id]
     );
     if (customer.rowCount === 0) {
