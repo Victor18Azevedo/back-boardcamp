@@ -31,8 +31,6 @@ export async function gamesInsert(req, res) {
   const { name, image, stockTotal, categoryId, pricePerDay } = req.game;
 
   try {
-    // TODO: categoryId must ber valid
-
     const result = await connection.query(
       'INSERT INTO games (name, image, "stockTotal", "categoryId", "pricePerDay")' +
         "SELECT $1,$2,$3,$4,$5 WHERE NOT EXISTS (SELECT name FROM games WHERE LOWER(name) = LOWER($1))",
