@@ -3,6 +3,22 @@ import dayjs from "dayjs";
 
 import connection from "../database/db.js";
 
+export async function rentalsList(req, res) {
+  const { customerId, gameId } = req.query;
+
+  try {
+    // TODO: insert customer and game in response
+
+    const rentals = await connection.query("SELECT * FROM rentals");
+    return res.send(rentals.rows);
+  } catch (error) {
+    console.log(
+      chalk.redBright(dayjs().format("YYYY-MM-DD HH:mm:ss"), error.message)
+    );
+    return res.sendStatus(500);
+  }
+}
+
 export async function rentalInsert(req, res) {
   const {
     customerId,
