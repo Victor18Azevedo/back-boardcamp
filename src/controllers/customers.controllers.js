@@ -69,3 +69,36 @@ export async function customerInsert(req, res) {
     return res.sendStatus(500);
   }
 }
+
+export async function customerUpdate(req, res) {
+  const { id } = req.params;
+  const { name, phone, cpf, birthday } = req.customer;
+
+  try {
+    const cpfDuplicate = await connection.query(
+      "SELECT cpf FROM customers WHERE cpf = $1 AND id <> $2",
+      [cpf, id]
+    );
+
+    if (cpfDuplicate.rowCount !== 0) {
+      return res.sendStatus(409);
+    }
+
+    const result = await connection.query(
+      "UPDATE customers SET name = $1, phone = $2, cpf = $3::VARCHAR, birthday = $4" +
+        "WHERE id = $5",
+      [name, phone, cpf, birthday, id]
+    );
+
+    if (result.rowCount !== 1) {
+      return res.sendStatus(400);
+    }
+
+    return res.sendStatus(200);
+  } catch (error) {
+    console.log(
+      chalk.redBright(dayjs().format("YYYY-MM-DD HH:mm:ss"), error.message)
+    );
+    return res.sendStatus(500);
+  }
+}
