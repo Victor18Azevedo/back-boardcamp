@@ -8,10 +8,9 @@ export async function gamesList(req, res) {
 
   try {
     if (name) {
-      const nameStart = name + "%";
       const games = await connection.query(
         'SELECT *, categories.name AS "categoryName" FROM categories JOIN games ON (games."categoryId" = categories.id) WHERE LOWER(games.name) LIKE LOWER($1)',
-        [nameStart]
+        [name.concat("%")]
       );
       return res.send(games.rows);
     }
