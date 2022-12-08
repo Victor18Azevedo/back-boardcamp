@@ -3,12 +3,12 @@ import dayjs from "dayjs";
 import connection from "../database/db.js";
 
 export async function categoryIdValidation(req, res, next) {
-  const game = req.game;
+  const { categoryId } = req.game;
 
   try {
     const categories = await connection.query(
       "SELECT id FROM categories WHERE id = $1",
-      [game.categoryId]
+      [categoryId]
     );
     if (categories.rowCount === 0) {
       console.log(
