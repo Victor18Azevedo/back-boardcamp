@@ -10,7 +10,7 @@ export async function gamesList(req, res) {
     if (name) {
       const nameStart = name + "%";
       const games = await connection.query(
-        'SELECT *, categories.name AS "categoryName" FROM categories JOIN games ON (games."categoryId" = categories.id) WHERE games.name LIKE $1',
+        'SELECT *, categories.name AS "categoryName" FROM categories JOIN games ON (games."categoryId" = categories.id) WHERE LOWER(games.name) LIKE LOWER($1)',
         [nameStart]
       );
       return res.send(games.rows);
@@ -36,7 +36,7 @@ export async function gamesInsert(req, res) {
 
     const result = await connection.query(
       'INSERT INTO games (name, image, "stockTotal", "categoryId", "pricePerDay")' +
-        "SELECT $1,$2,$3,$4,$5 WHERE NOT EXISTS (SELECT name FROM games WHERE name = $1)",
+        "SELECT $1,$2,$3,$4,$5 WHERE NOT EXISTS (SELECT name FROM games WHERE LOWER(name) = LOWER($1))",
       [name, image, stockTotal, categoryId, pricePerDay]
     );
 
