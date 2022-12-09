@@ -7,16 +7,19 @@ export async function rentalsList(req, res) {
   const { customerId, gameId } = req.query;
 
   try {
-    // TODO: insert customer and game in response
-    // TODO: implement query customerId
-    // TODO: implement query gameId
+    // TODO: implement Querying Nested JSON in PostgreSQL
 
     const rentals = await connection.query(`
-    SELECT rentals.id AS id, rentals."customerId", rentals."gameId", rentals."rentDate",
-    rentals."daysRented", rentals."returnDate", rentals."originalPrice", rentals."delayFee"
+    SELECT rentals."id" AS "id", rentals."customerId", rentals."gameId", rentals."rentDate",
+    rentals."daysRented", rentals."returnDate", rentals."originalPrice", rentals."delayFee",
+    customers."id" AS "customersId", customers."name" AS "customersName",
+    games."id" AS "gamesId", games."name" AS "gameName", games."categoryId" AS "gameCategoryId",
+    categories.name AS "gameCategoryName"
     FROM rentals
-        INNER JOIN customers ON rentals."customerId" = customers.id
-        INNER JOIN games ON rentals."gameId" = games.id`);
+        JOIN customers ON rentals."customerId" = customers.id
+        JOIN games ON rentals."gameId" = games.id
+        JOIN categories ON games."categoryId" = categories.id`);
+
     return res.send(rentals.rows);
   } catch (error) {
     console.log(
