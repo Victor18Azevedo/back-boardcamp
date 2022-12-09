@@ -87,3 +87,17 @@ export async function rentalClose(req, res) {
     return res.sendStatus(500);
   }
 }
+
+export async function rentalDelete(req, res) {
+  const { id } = req.rental;
+
+  try {
+    await connection.query(`DELETE FROM rentals WHERE "id" = $1`, [id]);
+    return res.sendStatus(200);
+  } catch (error) {
+    console.log(
+      chalk.redBright(dayjs().format("YYYY-MM-DD HH:mm:ss"), error.message)
+    );
+    return res.sendStatus(500);
+  }
+}
