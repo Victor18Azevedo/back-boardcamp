@@ -8,8 +8,13 @@ export async function rentalsList(req, res) {
 
   try {
     // TODO: insert customer and game in response
+    // TODO: implement query customerId
+    // TODO: implement query gameId
 
-    const rentals = await connection.query("SELECT * FROM rentals");
+    const rentals = await connection.query(`
+    SELECT * FROM rentals
+      INNER JOIN customers ON rentals."customerId" = customers.id
+      INNER JOIN games ON rentals."gameId" = games.id`);
     return res.send(rentals.rows);
   } catch (error) {
     console.log(
@@ -31,8 +36,6 @@ export async function rentalInsert(req, res) {
   } = req.rental;
 
   try {
-    // TODO: check game availability
-
     await connection.query(
       `INSERT INTO rentals ("customerId", "gameId", "rentDate", "daysRented", "returnDate", "originalPrice", "delayFee")
         VALUES ($1,$2,$3,$4,$5,$6,$7)`,

@@ -6,6 +6,7 @@ import {
 } from "../controllers/rentals.controllers.js";
 import { customerIdValidation } from "../middlewares/customerIdValidation.middleware.js";
 import { gameIdValidation } from "../middlewares/gameIdValidation.middleware.js";
+import { gameAvailabilityValidation } from "../middlewares/gameAvailabilityValidation.middleware.js";
 import { rentalSchemaValidation } from "../middlewares/rentalSchemaValidation.middleware.js";
 import { rentalParse } from "../middlewares/rentalParse.middleware.js";
 
@@ -18,6 +19,7 @@ router.post(
   customerIdValidation,
   gameIdValidation,
   rentalParse,
+  gameAvailabilityValidation,
   rentalInsert
 );
 
