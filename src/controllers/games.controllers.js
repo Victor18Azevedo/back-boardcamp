@@ -15,9 +15,24 @@ export async function gamesList(req, res) {
       return res.send(games.rows);
     }
 
-    const games = await connection.query(
-      'SELECT *, categories.name AS "categoryName" FROM categories JOIN games ON (games."categoryId" = categories.id)'
-    );
+    // array to json
+    const games = await connection.query(`
+      SELECT * FROM games g
+        LEFT JOIN LATERAL (
+          SELECT array(SELECT name FROM categories WHERE categories.id = g.id) AS category) n ON true`);
+
+    // array to json
+    // const games = await connection.query(`
+    //   SELECT array_to_json(ARRAY(
+    //     SELECT row_to_json(n)
+    //     FROM games g
+    //     LEFT JOIN LATERAL (SELECT g.name, array(SELECT name FROM categories WHERE categories.id = g.id) AS category) n ON true
+    //     ))`);
+
+    // FIX: basic JOIN
+    // const games = await connection.query(
+    //   'SELECT *, categories.name AS "categoryName" FROM categories JOIN games ON (games."categoryId" = categories.id)'
+    // );
     return res.send(games.rows);
   } catch (error) {
     console.log(
