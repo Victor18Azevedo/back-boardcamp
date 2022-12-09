@@ -8,7 +8,7 @@ export async function gameAvailabilityValidation(req, res, next) {
 
   try {
     const rentalsOfGameId = await connection.query(
-      'SELECT * FROM rentals WHERE "gameId" = $1',
+      'SELECT * FROM rentals WHERE "gameId" = $1 AND "returnDate" IS NULL',
       [id]
     );
     if (rentalsOfGameId.rowCount >= stockTotal) {
