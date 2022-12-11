@@ -4,6 +4,10 @@ import dayjs from "dayjs";
 import connection from "../database/db.js";
 
 export async function categoriesList(req, res) {
+  /*
+    #swagger.description = 'Route for list categories.'
+  */
+
   try {
     const categories = await connection.query("SELECT * FROM categories");
     res.send(categories.rows);
@@ -16,6 +20,20 @@ export async function categoriesList(req, res) {
 }
 
 export async function categoriesInsert(req, res) {
+  /*
+    #swagger.description = 'Route for insert new category.'
+  */
+
+  /*
+  #swagger.parameters['name'] = {
+	description: 'Category name to insert',
+    type: 'string',
+    required: true,
+    in: 'body',
+    example: 'Terror',
+  }
+  */
+
   const { name } = req.category;
   try {
     const result = await connection.query(

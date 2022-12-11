@@ -4,6 +4,10 @@ import dayjs from "dayjs";
 import connection from "../database/db.js";
 
 export async function customersList(req, res) {
+  /*
+    #swagger.description = 'Route for list customers.'
+  */
+
   const { cpf } = req.query;
 
   try {
@@ -28,6 +32,10 @@ export async function customersList(req, res) {
 }
 
 export async function getCustomer(req, res) {
+  /*
+    #swagger.description = 'Route for show a customer.'
+  */
+
   const { id } = req.params;
 
   try {
@@ -48,6 +56,44 @@ export async function getCustomer(req, res) {
 }
 
 export async function customerInsert(req, res) {
+  /*
+    #swagger.description = 'Route for insert a new customer'
+  */
+
+  /*
+  #swagger.parameters['name'] = {
+	description: 'Customer's name',
+    type: 'string',
+    required: true,
+    in: 'body',
+    example: 'Robert Plant',
+  }
+
+  #swagger.parameters['phone'] = {
+	description: 'Customer's phone number',
+    type: 'string',
+    required: true,
+    in: 'body',
+    example: '85911223344',
+  }
+
+  #swagger.parameters['cpf'] = {
+	description: 'Customer's CPF document number',
+    type: 'string',
+    required: true,
+    in: 'body',
+    example: '01234567890',
+  }
+
+  #swagger.parameters['birthday'] = {
+	description: 'Customer's birthday',
+    type: 'date',
+    required: true,
+    in: 'body',
+    example: '1948-08-20',
+  }
+  */
+
   const { name, phone, cpf, birthday } = req.customer;
 
   try {
@@ -71,6 +117,10 @@ export async function customerInsert(req, res) {
 }
 
 export async function customerUpdate(req, res) {
+  /*
+    #swagger.description = 'Route for update customer data.'
+  */
+
   const { id } = req.params;
   const { name, phone, cpf, birthday } = req.customer;
 
