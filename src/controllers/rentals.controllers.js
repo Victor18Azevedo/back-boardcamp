@@ -7,20 +7,48 @@ export async function rentalsList(req, res) {
   const { customerId, gameId } = req.query;
 
   try {
-    // TODO: implement Querying Nested JSON in PostgreSQL
+    let WHERE = "";
+    WHERE += customerId && !gameId ? `WHERE customers.id = ${customerId}` : "";
+    WHERE += gameId && !customerId ? `WHERE games.id = ${gameId}` : "";
+    WHERE +=
+      customerId && gameId
+        ? `WHERE customers.id = ${customerId} AND  games.id = ${gameId}`
+        : "";
 
-    const rentals = await connection.query(`
-    SELECT rentals."id" AS "id", rentals."customerId", rentals."gameId", rentals."rentDate",
-    rentals."daysRented", rentals."returnDate", rentals."originalPrice", rentals."delayFee",
-    customers."id" AS "customersId", customers."name" AS "customersName",
-    games."id" AS "gamesId", games."name" AS "gameName", games."categoryId" AS "gameCategoryId",
-    categories.name AS "gameCategoryName"
-    FROM rentals
-        JOIN customers ON rentals."customerId" = customers.id
-        JOIN games ON rentals."gameId" = games.id
-        JOIN categories ON games."categoryId" = categories.id`);
+    const result = await connection.query(
+      `SELECT rentals."id" AS "id", rentals."customerId", rentals."gameId", rentals."rentDate"::text,
+      rentals."daysRented", rentals."returnDate"::text, rentals."originalPrice", rentals."delayFee",
+      customers."id" AS "customersId", customers."name" AS "customersName",
+      games."id" AS "gamesId", games."name" AS "gameName", games."categoryId" AS "gameCategoryId",
+      categories.name AS "gameCategoryName"
+      FROM rentals
+          JOIN customers ON rentals."customerId" =  customers.id
+          JOIN games ON rentals."gameId" = games.id
+          JOIN categories ON games."categoryId" = categories.id ${WHERE}`
+    );
 
-    return res.send(rentals.rows);
+    const rentals = result.rows.map((r) => ({
+      id: r.id,
+      customerId: r.customerId,
+      gameId: r.gameId,
+      rentDate: r.rentDate,
+      daysRented: r.daysRented,
+      returnDate: r.returnDate,
+      originalPrice: r.originalPrice,
+      delayFee: r.delayFee,
+      customer: {
+        id: r.customersId,
+        name: r.customersName,
+      },
+      game: {
+        id: r.gamesId,
+        name: r.gameName,
+        categoryId: r.gameCategoryId,
+        categoryName: r.gameCategoryName,
+      },
+    }));
+
+    return res.send(rentals);
   } catch (error) {
     console.log(
       chalk.redBright(dayjs().format("YYYY-MM-DD HH:mm:ss"), error.message)
