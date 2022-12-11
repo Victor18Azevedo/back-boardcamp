@@ -18,7 +18,7 @@ export function rentalSchemaValidation(req, res, next) {
     );
     return res.status(400).send({ message });
   }
-  req.rental = body;
+  req.rental = { ...body };
 
   next();
 }
