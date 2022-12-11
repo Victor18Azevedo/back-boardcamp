@@ -4,19 +4,13 @@ import dayjs from "dayjs";
 import connection from "../database/db.js";
 
 export async function customersList(req, res) {
-  const { cpf } = req.query;
+  const { whereCpfSQL, orderSQL, descSQL, offsetSQL, limitSQL } =
+    req.queriesSQL;
 
   try {
-    if (cpf) {
-      const customers = await connection.query(
-        "SELECT *, birthday::text FROM customers WHERE cpf LIKE $1",
-        [cpf.concat("%")]
-      );
-      return res.send(customers.rows);
-    }
-
     const customers = await connection.query(
-      "SELECT *, birthday::text FROM customers"
+      `SELECT id, name, phone, cpf, birthday::text
+        FROM customers ${whereCpfSQL} ${orderSQL} ${descSQL} ${offsetSQL} ${limitSQL}`
     );
     return res.send(customers.rows);
   } catch (error) {
