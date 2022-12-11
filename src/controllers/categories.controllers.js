@@ -4,8 +4,12 @@ import dayjs from "dayjs";
 import connection from "../database/db.js";
 
 export async function categoriesList(req, res) {
+  const { orderSQL, descSQL, offsetSQL, limitSQL } = req.queriesSQL;
+
   try {
-    const categories = await connection.query("SELECT * FROM categories");
+    const categories = await connection.query(
+      `SELECT * FROM categories ${orderSQL} ${descSQL} ${offsetSQL} ${limitSQL}`
+    );
     res.send(categories.rows);
   } catch (error) {
     console.log(
