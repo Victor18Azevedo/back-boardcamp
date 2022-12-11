@@ -19,7 +19,7 @@ export async function categoriesInsert(req, res) {
   const { name } = req.category;
   try {
     const result = await connection.query(
-      "INSERT INTO categories (name) SELECT $1 WHERE NOT EXISTS (SELECT name FROM categories WHERE name = $1)",
+      "INSERT INTO categories (name) SELECT $1 WHERE NOT EXISTS (SELECT name FROM categories WHERE LOWER(name) = LOWER($1))",
       [name]
     );
     if (result.rowCount === 0) {
