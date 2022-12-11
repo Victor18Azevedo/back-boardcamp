@@ -4,6 +4,7 @@ import JoiDate from "@joi/date";
 const Joi = JoiBase.extend(JoiDate);
 
 export const queriesSchema = Joi.object({
+  cpf: Joi.string().pattern(/^[0-9]+$/),
   customerId: Joi.number().greater(0),
   gameId: Joi.number().greater(0),
   offset: Joi.number().greater(0),
