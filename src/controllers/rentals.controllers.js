@@ -5,6 +5,7 @@ import connection from "../database/db.js";
 
 export async function rentalsList(req, res) {
   /*
+    #swagger.tags = ['Rentals']
     #swagger.description = 'Route for list rentals.'
   */
 
@@ -57,6 +58,7 @@ export async function rentalsList(req, res) {
 
 export async function rentalInsert(req, res) {
   /*
+    #swagger.tags = ['Rentals']
     #swagger.description = 'Route for create a new rental.'
   */
 
@@ -96,6 +98,7 @@ export async function rentalInsert(req, res) {
 
 export async function rentalClose(req, res) {
   /*
+    #swagger.tags = ['Rentals']
     #swagger.description = 'Route for close a opened rental.'
   */
 
@@ -127,6 +130,7 @@ export async function rentalClose(req, res) {
 
 export async function rentalDelete(req, res) {
   /*
+    #swagger.tags = ['Rentals']
     #swagger.description = 'Route for delete a closed rental.'
   */
 

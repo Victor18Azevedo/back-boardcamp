@@ -5,6 +5,7 @@ import connection from "../database/db.js";
 
 export async function gamesList(req, res) {
   /*
+    #swagger.tags = ['Games']
     #swagger.description = 'Route for list games.'
   */
 
@@ -30,6 +31,7 @@ export async function gamesList(req, res) {
 
 export async function gamesInsert(req, res) {
   /*
+    #swagger.tags = ['Games']
     #swagger.description = 'Route for insert a new game'
   */
 
