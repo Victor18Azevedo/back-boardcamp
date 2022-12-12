@@ -6,7 +6,7 @@ import connection from "../database/db.js";
 export async function categoriesList(req, res) {
   /*
     #swagger.tags = ['Categories']
-    #swagger.description = 'Route for list categories.'
+    #swagger.description = 'Route for list categories.'    
   */
 
   const orderPagesSQL = req.orderPagesSQL;
@@ -28,9 +28,12 @@ export async function categoriesInsert(req, res) {
   /*
     #swagger.tags = ['Categories']
     #swagger.description = 'Route for insert new category.'
+    #swagger.parameters['Add Category'] = {
+        in: 'body',
+        description: 'Add a new category',        
+        schema: { $ref: '#/definitions/AddCategory' }
+    }
   */
-
-  //  format: <string>,
 
   const { name } = req.category;
   try {

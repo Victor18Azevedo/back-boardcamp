@@ -33,6 +33,11 @@ export async function gamesInsert(req, res) {
   /*
     #swagger.tags = ['Games']
     #swagger.description = 'Route for insert a new game'
+    #swagger.parameters['Add Game'] = {
+      in: 'body',
+      description: 'Add a new game',      
+      schema: { $ref: '#/definitions/AddGame' }
+    }
   */
 
   const { name, image, stockTotal, categoryId, pricePerDay } = req.game;

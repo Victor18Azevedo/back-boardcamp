@@ -56,7 +56,16 @@
           "Categories"
         ],
         "description": "Route for insert new category.",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Add Category",
+            "in": "body",
+            "description": "Add a new category",
+            "schema": {
+              "$ref": "#/definitions/AddCategory"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -156,6 +165,14 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "Update Customer",
+            "in": "body",
+            "description": "Update customers data by id",
+            "schema": {
+              "$ref": "#/definitions/AddCustomer"
+            }
           }
         ],
         "responses": {
@@ -180,7 +197,16 @@
           "Customers"
         ],
         "description": "Route for insert a new customer",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Add Customer",
+            "in": "body",
+            "description": "Add a new customer",
+            "schema": {
+              "$ref": "#/definitions/AddCustomer"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -247,7 +273,16 @@
           "Games"
         ],
         "description": "Route for insert a new game",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Add Game",
+            "in": "body",
+            "description": "Add a new game",
+            "schema": {
+              "$ref": "#/definitions/AddGame"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -334,7 +369,16 @@
           "Rentals"
         ],
         "description": "Route for create a new rental.",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "New Rental",
+            "in": "body",
+            "description": "Open a new rental",
+            "schema": {
+              "$ref": "#/definitions/AddRental"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"

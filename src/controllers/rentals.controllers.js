@@ -60,6 +60,11 @@ export async function rentalInsert(req, res) {
   /*
     #swagger.tags = ['Rentals']
     #swagger.description = 'Route for create a new rental.'
+    #swagger.parameters['New Rental'] = {
+      in: 'body',
+      description: 'Open a new rental',      
+      schema: { $ref: '#/definitions/AddRental' }
+    }
   */
 
   const {

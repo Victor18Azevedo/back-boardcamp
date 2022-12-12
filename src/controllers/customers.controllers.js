@@ -55,6 +55,11 @@ export async function customerInsert(req, res) {
   /*
     #swagger.tags = ['Customers']
     #swagger.description = 'Route for insert a new customer'
+    #swagger.parameters['Add Customer'] = {
+      in: 'body',
+      description: 'Add a new customer',        
+      schema: { $ref: '#/definitions/AddCustomer' }
+    }
   */
 
   const { name, phone, cpf, birthday } = req.customer;
@@ -83,6 +88,11 @@ export async function customerUpdate(req, res) {
   /*
     #swagger.tags = ['Customers']
     #swagger.description = 'Route for update customer data.'
+    #swagger.parameters['Update Customer'] = {
+      in: 'body',
+      description: 'Update customers data by id',      
+      schema: { $ref: '#/definitions/AddCustomer' }
+    }
   */
 
   const { id } = req.params;
