@@ -4,6 +4,10 @@ import dayjs from "dayjs";
 import connection from "../database/db.js";
 
 export async function gamesList(req, res) {
+  /*
+    #swagger.description = 'Route for list games.'
+  */
+
   const orderPagesSQL = req.orderPagesSQL;
   const whereSQL = req.whereSQL;
 
@@ -25,6 +29,10 @@ export async function gamesList(req, res) {
 }
 
 export async function gamesInsert(req, res) {
+  /*
+    #swagger.description = 'Route for insert a new game'
+  */
+
   const { name, image, stockTotal, categoryId, pricePerDay } = req.game;
 
   try {
