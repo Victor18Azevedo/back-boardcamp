@@ -408,5 +408,236 @@
         }
       }
     }
+  },
+  "definitions": {
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 3
+        },
+        "name": {
+          "type": "string",
+          "example": "Terror"
+        }
+      }
+    },
+    "Customer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Messi"
+        },
+        "phone": {
+          "type": "string",
+          "example": "85988774466"
+        },
+        "cpf": {
+          "type": "string",
+          "example": "01234567890"
+        },
+        "birthday": {
+          "type": "string",
+          "example": "1987-06-24"
+        }
+      }
+    },
+    "Game": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Banco Imobiliário"
+        },
+        "image": {
+          "type": "string",
+          "example": "https://d3ddx6b2p2pevg.cloudfront.net/Custom/Content/Products/10/08/1008677_jogo-banco-imobiliario-com-aplicativo-estrela_m12_636810396920334046"
+        },
+        "stockTotal": {
+          "type": "number",
+          "example": 3
+        },
+        "categoryId": {
+          "type": "number",
+          "example": 1
+        },
+        "pricePerDay": {
+          "type": "number",
+          "example": 1500
+        },
+        "categoryName": {
+          "type": "string",
+          "example": "Estratégia"
+        }
+      }
+    },
+    "Rental": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 30
+        },
+        "customerId": {
+          "type": "number",
+          "example": 5
+        },
+        "gameId": {
+          "type": "number",
+          "example": 10
+        },
+        "rentDate": {
+          "type": "string",
+          "example": "2022-03-05"
+        },
+        "daysRented": {
+          "type": "number",
+          "example": 20
+        },
+        "returnDate": {},
+        "originalPrice": {
+          "type": "number",
+          "example": 33000
+        },
+        "delayFee": {},
+        "customer": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": 5
+            },
+            "name": {
+              "type": "string",
+              "example": "Messe"
+            }
+          }
+        },
+        "game": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": 10
+            },
+            "name": {
+              "type": "string",
+              "example": "Detetive"
+            },
+            "categoryId": {
+              "type": "number",
+              "example": 2
+            },
+            "categoryName": {
+              "type": "string",
+              "example": "Investigação"
+            }
+          }
+        }
+      }
+    },
+    "AddCategory": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Terror"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "AddCustomer": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Messi"
+        },
+        "phone": {
+          "type": "string",
+          "example": "85988774466"
+        },
+        "cpf": {
+          "type": "string",
+          "example": "01234567890"
+        },
+        "birthday": {
+          "type": "string",
+          "example": "1987-06-24"
+        }
+      },
+      "required": [
+        "name",
+        "phone",
+        "cpf",
+        "birthday"
+      ]
+    },
+    "AddGame": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "jumanji"
+        },
+        "image": {
+          "type": "string",
+          "example": "http://blogdebrinquedo.com.br/wp-content/uploads/2019/11/20191129prop-jumanji-board-game-1-1-collector-replica-01.jpg"
+        },
+        "stockTotal": {
+          "type": "number",
+          "example": 1
+        },
+        "categoryId": {
+          "type": "number",
+          "example": 9
+        },
+        "pricePerDay": {
+          "type": "number",
+          "example": 1450
+        }
+      },
+      "required": [
+        "name",
+        "image",
+        "stockTotal",
+        "categoryId",
+        "pricePerDay"
+      ]
+    },
+    "AddRental": {
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "type": "number",
+          "example": 1
+        },
+        "gameId": {
+          "type": "number",
+          "example": 10
+        },
+        "daysRented": {
+          "type": "number",
+          "example": 20
+        }
+      },
+      "required": [
+        "customerId",
+        "gameId",
+        "daysRented"
+      ]
+    }
   }
 }
