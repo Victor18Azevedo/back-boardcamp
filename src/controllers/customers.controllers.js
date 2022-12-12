@@ -4,13 +4,13 @@ import dayjs from "dayjs";
 import connection from "../database/db.js";
 
 export async function customersList(req, res) {
-  const { whereCpfSQL, orderSQL, descSQL, offsetSQL, limitSQL } =
-    req.queriesSQL;
+  const orderPagesSQL = req.orderPagesSQL;
+  const whereSQL = req.whereSQL;
 
   try {
     const customers = await connection.query(
       `SELECT id, name, phone, cpf, birthday::text
-        FROM customers ${whereCpfSQL} ${orderSQL} ${descSQL} ${offsetSQL} ${limitSQL}`
+        FROM customers ${whereSQL} ${orderPagesSQL}`
     );
     return res.send(customers.rows);
   } catch (error) {
