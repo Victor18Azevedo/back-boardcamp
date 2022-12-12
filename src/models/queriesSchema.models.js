@@ -5,10 +5,11 @@ const Joi = JoiBase.extend(JoiDate);
 
 export const queriesSchema = Joi.object({
   cpf: Joi.string().pattern(/^[0-9]+$/),
+  name: Joi.string().alphanum().trim(),
   customerId: Joi.number().greater(0),
   gameId: Joi.number().greater(0),
-  offset: Joi.number().greater(0),
-  limit: Joi.number().greater(0),
+  offset: Joi.number().min(0),
+  limit: Joi.number().min(0),
   order: Joi.string().alphanum().trim(),
   desc: Joi.boolean().sensitive(),
   status: Joi.alternatives(["open", "closed"]),

@@ -4,17 +4,10 @@ import dayjs from "dayjs";
 import connection from "../database/db.js";
 
 export async function rentalsList(req, res) {
-  const { customerId, gameId } = req.query;
+  const orderPagesSQL = req.orderPagesSQL;
+  const whereSQL = req.whereSQL;
 
   try {
-    let WHERE = "";
-    WHERE += customerId && !gameId ? `WHERE customers.id = ${customerId}` : "";
-    WHERE += gameId && !customerId ? `WHERE games.id = ${gameId}` : "";
-    WHERE +=
-      customerId && gameId
-        ? `WHERE customers.id = ${customerId} AND  games.id = ${gameId}`
-        : "";
-
     const result = await connection.query(
       `SELECT rentals."id" AS "id", rentals."customerId", rentals."gameId", rentals."rentDate"::text,
       rentals."daysRented", rentals."returnDate"::text, rentals."originalPrice", rentals."delayFee",
@@ -24,7 +17,8 @@ export async function rentalsList(req, res) {
       FROM rentals
           JOIN customers ON rentals."customerId" =  customers.id
           JOIN games ON rentals."gameId" = games.id
-          JOIN categories ON games."categoryId" = categories.id ${WHERE}`
+          JOIN categories ON games."categoryId" = categories.id
+            ${whereSQL} ${orderPagesSQL}`
     );
 
     const rentals = result.rows.map((r) => ({

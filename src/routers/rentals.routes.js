@@ -15,10 +15,18 @@ import { rentalOpenedValidation } from "../middlewares/rentalOpenedValidation.mi
 import { rentalClosedValidation } from "../middlewares/rentalClosedValidation.middleware.js";
 import { rentalSchemaValidation } from "../middlewares/rentalSchemaValidation.middleware.js";
 import { rentalParse } from "../middlewares/rentalParse.middleware.js";
+import { rentalsQueriesParse } from "../middlewares/rentalsQueriesParse.middleware.js";
+import { paginationQueriesParse } from "../middlewares/paginationQueriesParse.middleware.js";
 
 const router = Router();
 
-router.get("/rentals", queriesSchemaValidation, rentalsList);
+router.get(
+  "/rentals",
+  queriesSchemaValidation,
+  paginationQueriesParse,
+  rentalsQueriesParse,
+  rentalsList
+);
 router.post(
   "/rentals",
   rentalSchemaValidation,
