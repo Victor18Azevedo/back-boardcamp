@@ -4,11 +4,11 @@ import dayjs from "dayjs";
 import connection from "../database/db.js";
 
 export async function categoriesList(req, res) {
-  const { orderSQL, descSQL, offsetSQL, limitSQL } = req.queriesSQL;
+  const orderPagesSQL = req.orderPagesSQL;
 
   try {
     const categories = await connection.query(
-      `SELECT * FROM categories ${orderSQL} ${descSQL} ${offsetSQL} ${limitSQL}`
+      `SELECT * FROM categories ${orderPagesSQL}`
     );
     res.send(categories.rows);
   } catch (error) {
