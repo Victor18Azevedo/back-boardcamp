@@ -4,20 +4,17 @@ import dayjs from "dayjs";
 import connection from "../database/db.js";
 
 export async function gamesList(req, res) {
-  const { name } = req.query;
+  const orderPagesSQL = req.orderPagesSQL;
+  const whereSQL = req.whereSQL;
 
   try {
-    if (name) {
-      const games = await connection.query(
-        'SELECT *, categories.name AS "categoryName" FROM categories JOIN games ON (games."categoryId" = categories.id) WHERE LOWER(games.name) LIKE LOWER($1)',
-        [name.concat("%")]
-      );
-      return res.send(games.rows);
-    }
-
     const games = await connection.query(
-      'SELECT *, categories.name AS "categoryName" FROM categories JOIN games ON (games."categoryId" = categories.id)'
+      `SELECT games.id AS "id", games.name AS "name", games."image", games."stockTotal", games."categoryId", games."pricePerDay", 
+      categories.name AS "categoryName"
+        FROM categories JOIN games ON (games."categoryId" = categories.id)
+          ${whereSQL} ${orderPagesSQL}`
     );
+
     return res.send(games.rows);
   } catch (error) {
     console.log(
