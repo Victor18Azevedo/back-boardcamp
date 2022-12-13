@@ -3,6 +3,7 @@ import swaggerAutogen from "swagger-autogen";
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
+const API_URL = process.env.API_URL || `localhost:${PORT}`;
 
 const doc = {
   info: {
@@ -10,7 +11,7 @@ const doc = {
     title: "BOARDCAMP REST API",
     description: "API to serve a board game rental store application",
   },
-  host: `localhost:${PORT}`,
+  host: API_URL,
   basePath: "/",
   schemes: ["http"],
   definitions: {
