@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "title": "BOARDCAMP REST API",
+    "description": "API to serve a board game rental store application"
   },
-  "host": "localhost:3000",
+  "host": "localhost:4000",
   "basePath": "/",
   "schemes": ["http"],
   "paths": {
@@ -572,7 +572,7 @@
             },
             "name": {
               "type": "string",
-              "example": "Messe"
+              "example": "Messi"
             }
           }
         },

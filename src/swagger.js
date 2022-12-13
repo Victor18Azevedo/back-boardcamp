@@ -1,6 +1,18 @@
+import dotenv from "dotenv";
 import swaggerAutogen from "swagger-autogen";
 
+dotenv.config();
+const PORT = process.env.PORT || 4000;
+
 const doc = {
+  info: {
+    version: "1.0.0",
+    title: "BOARDCAMP REST API",
+    description: "API to serve a board game rental store application",
+  },
+  host: `localhost:${PORT}`,
+  basePath: "/",
+  schemes: ["http"],
   definitions: {
     Category: {
       id: 3,
@@ -38,7 +50,7 @@ const doc = {
       delayFee: null,
       customer: {
         id: 5,
-        name: "Messe",
+        name: "Messi",
       },
       game: {
         id: 10,
