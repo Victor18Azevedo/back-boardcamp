@@ -7,7 +7,7 @@
   },
   "host": "https://boadcamp-api-victor18azevedo.onrender.com",
   "basePath": "/",
-  "schemes": ["http", "https"],
+  "schemes": ["http"],
   "paths": {
     "/categories": {
       "get": {
