@@ -5,7 +5,7 @@
     "title": "BOARDCAMP REST API",
     "description": "API to serve a board game rental store application"
   },
-  "host": "boadcamp-api-victor18azevedo.onrender.com",
+  "host": "https://boadcamp-api-victor18azevedo.onrender.com",
   "basePath": "/",
   "schemes": ["http", "https"],
   "paths": {
