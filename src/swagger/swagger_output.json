@@ -27,7 +27,7 @@
           {
             "name": "order",
             "in": "query",
-            "type": "integer"
+            "type": "string"
           },
           {
             "name": "desc",
@@ -98,7 +98,7 @@
           {
             "name": "order",
             "in": "query",
-            "type": "integer"
+            "type": "string"
           },
           {
             "name": "desc",
@@ -236,7 +236,7 @@
           {
             "name": "order",
             "in": "query",
-            "type": "integer"
+            "type": "string"
           },
           {
             "name": "desc",
@@ -312,7 +312,7 @@
           {
             "name": "order",
             "in": "query",
-            "type": "integer"
+            "type": "string"
           },
           {
             "name": "desc",
