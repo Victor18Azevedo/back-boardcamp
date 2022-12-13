@@ -15,6 +15,11 @@ export async function categoriesList(req, res) {
     const categories = await connection.query(
       `SELECT * FROM categories ${orderPagesSQL}`
     );
+
+    /* #swagger.responses[200] = {
+            description: 'Categories list successfully obtained.',
+            schema: { $ref: '#/definitions/CategoriesList' }
+    } */
     res.send(categories.rows);
   } catch (error) {
     console.log(
@@ -30,8 +35,9 @@ export async function categoriesInsert(req, res) {
     #swagger.description = 'Route for insert new category.'
     #swagger.parameters['Add Category'] = {
         in: 'body',
+        required: 'true',
         description: 'Add a new category',        
-        schema: { $ref: '#/definitions/AddCategory' }
+        schema: { $ref: '#/components/@schemas/AddCategory' }
     }
   */
 
@@ -44,6 +50,10 @@ export async function categoriesInsert(req, res) {
     if (result.rowCount === 0) {
       return res.sendStatus(409);
     }
+
+    /* #swagger.responses[201] = {
+            description: 'New category add with success',
+    } */
     res.sendStatus(201);
   } catch (error) {
     console.log(

@@ -7,41 +7,40 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["http"],
   "paths": {
     "/categories": {
       "get": {
-        "tags": [
-          "Categories"
-        ],
+        "tags": ["Categories"],
         "description": "Route for list categories.",
         "parameters": [
           {
             "name": "offset",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "limit",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "order",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "desc",
             "in": "query",
-            "type": "string"
+            "type": "boolean"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Categories list successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/CategoriesList"
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -52,23 +51,22 @@
         }
       },
       "post": {
-        "tags": [
-          "Categories"
-        ],
+        "tags": ["Categories"],
         "description": "Route for insert new category.",
         "parameters": [
           {
             "name": "Add Category",
             "in": "body",
+            "required": true,
             "description": "Add a new category",
             "schema": {
-              "$ref": "#/definitions/AddCategory"
+              "$ref": "#/components/@schemas/AddCategory"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "New category add with success"
           },
           "400": {
             "description": "Bad Request"
@@ -84,30 +82,28 @@
     },
     "/customers": {
       "get": {
-        "tags": [
-          "Customers"
-        ],
+        "tags": ["Customers"],
         "description": "Route for list customers.",
         "parameters": [
           {
             "name": "offset",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "limit",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "order",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "desc",
             "in": "query",
-            "type": "string"
+            "type": "boolean"
           },
           {
             "name": "cpf",
@@ -117,7 +113,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Customers list successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/CustomersList"
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -130,9 +129,7 @@
     },
     "/customers/{id}": {
       "get": {
-        "tags": [
-          "Customers"
-        ],
+        "tags": ["Customers"],
         "description": "Route for show a customer.",
         "parameters": [
           {
@@ -144,10 +141,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Customer successfully obtained."
           },
           "404": {
-            "description": "Not Found"
+            "description": "Customer don`t found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -155,9 +152,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Customers"
-        ],
+        "tags": ["Customers"],
         "description": "Route for update customer data.",
         "parameters": [
           {
@@ -169,21 +164,22 @@
           {
             "name": "Update Customer",
             "in": "body",
+            "required": true,
             "description": "Update customers data by id",
             "schema": {
-              "$ref": "#/definitions/AddCustomer"
+              "$ref": "#/components/@schemas/AddCustomer"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Customer updated with success"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Update error"
           },
           "409": {
-            "description": "Conflict"
+            "description": "CPF already used by another customer"
           },
           "500": {
             "description": "Internal Server Error"
@@ -193,29 +189,28 @@
     },
     "/customers/": {
       "post": {
-        "tags": [
-          "Customers"
-        ],
+        "tags": ["Customers"],
         "description": "Route for insert a new customer",
         "parameters": [
           {
             "name": "Add Customer",
             "in": "body",
+            "required": true,
             "description": "Add a new customer",
             "schema": {
-              "$ref": "#/definitions/AddCustomer"
+              "$ref": "#/components/@schemas/AddCustomer"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "New customer add with success"
           },
           "400": {
             "description": "Bad Request"
           },
           "409": {
-            "description": "Conflict"
+            "description": "CPF already used by another customer"
           },
           "500": {
             "description": "Internal Server Error"
@@ -225,30 +220,28 @@
     },
     "/games": {
       "get": {
-        "tags": [
-          "Games"
-        ],
+        "tags": ["Games"],
         "description": "Route for list games.",
         "parameters": [
           {
             "name": "offset",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "limit",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "order",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "desc",
             "in": "query",
-            "type": "string"
+            "type": "boolean"
           },
           {
             "name": "name",
@@ -258,7 +251,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Games list successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/GamesList"
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -269,29 +265,28 @@
         }
       },
       "post": {
-        "tags": [
-          "Games"
-        ],
+        "tags": ["Games"],
         "description": "Route for insert a new game",
         "parameters": [
           {
             "name": "Add Game",
             "in": "body",
+            "required": true,
             "description": "Add a new game",
             "schema": {
-              "$ref": "#/definitions/AddGame"
+              "$ref": "#/components/@schemas/AddGame"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "New game add with success"
           },
           "400": {
             "description": "Bad Request"
           },
           "409": {
-            "description": "Conflict"
+            "description": "Game already exist"
           },
           "500": {
             "description": "Internal Server Error"
@@ -301,30 +296,28 @@
     },
     "/rentals": {
       "get": {
-        "tags": [
-          "Rentals"
-        ],
+        "tags": ["Rentals"],
         "description": "Route for list rentals.",
         "parameters": [
           {
             "name": "offset",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "limit",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "order",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "desc",
             "in": "query",
-            "type": "string"
+            "type": "boolean"
           },
           {
             "name": "status",
@@ -334,27 +327,30 @@
           {
             "name": "startDate",
             "in": "query",
-            "type": "string"
+            "type": "date"
           },
           {
             "name": "endDate",
             "in": "query",
-            "type": "string"
+            "type": "date"
           },
           {
             "name": "customerId",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "gameId",
             "in": "query",
-            "type": "string"
+            "type": "integer"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Rentals list successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/RentalsList"
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -365,23 +361,22 @@
         }
       },
       "post": {
-        "tags": [
-          "Rentals"
-        ],
+        "tags": ["Rentals"],
         "description": "Route for create a new rental.",
         "parameters": [
           {
             "name": "New Rental",
             "in": "body",
+            "required": true,
             "description": "Open a new rental",
             "schema": {
-              "$ref": "#/definitions/AddRental"
+              "$ref": "#/components/@schemas/AddRental"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "New rental add with success"
           },
           "400": {
             "description": "Bad Request"
@@ -394,9 +389,7 @@
     },
     "/rentals/{id}/return": {
       "post": {
-        "tags": [
-          "Rentals"
-        ],
+        "tags": ["Rentals"],
         "description": "Route for close a opened rental.",
         "parameters": [
           {
@@ -408,7 +401,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Rental closed with success"
           },
           "400": {
             "description": "Bad Request"
@@ -424,9 +417,7 @@
     },
     "/rentals/{id}": {
       "delete": {
-        "tags": [
-          "Rentals"
-        ],
+        "tags": ["Rentals"],
         "description": "Route for delete a closed rental.",
         "parameters": [
           {
@@ -438,7 +429,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Rental deleted with success"
           },
           "400": {
             "description": "Bad Request"
@@ -467,6 +458,12 @@
         }
       }
     },
+    "CategoriesList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Category"
+      }
+    },
     "Customer": {
       "type": "object",
       "properties": {
@@ -490,6 +487,12 @@
           "type": "string",
           "example": "1987-06-24"
         }
+      }
+    },
+    "CustomersList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Customer"
       }
     },
     "Game": {
@@ -523,6 +526,12 @@
           "type": "string",
           "example": "Estratégia"
         }
+      }
+    },
+    "GamesList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Game"
       }
     },
     "Rental": {
@@ -590,6 +599,12 @@
         }
       }
     },
+    "RentalsList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Rental"
+      }
+    },
     "AddCategory": {
       "type": "object",
       "properties": {
@@ -598,9 +613,7 @@
           "example": "Terror"
         }
       },
-      "required": [
-        "name"
-      ]
+      "required": ["name"]
     },
     "AddCustomer": {
       "type": "object",
@@ -622,19 +635,14 @@
           "example": "1987-06-24"
         }
       },
-      "required": [
-        "name",
-        "phone",
-        "cpf",
-        "birthday"
-      ]
+      "required": ["name", "phone", "cpf", "birthday"]
     },
     "AddGame": {
       "type": "object",
       "properties": {
         "name": {
           "type": "string",
-          "example": "jumanji"
+          "example": "Jumanji"
         },
         "image": {
           "type": "string",
@@ -646,20 +654,14 @@
         },
         "categoryId": {
           "type": "number",
-          "example": 9
+          "example": 4
         },
         "pricePerDay": {
           "type": "number",
           "example": 1450
         }
       },
-      "required": [
-        "name",
-        "image",
-        "stockTotal",
-        "categoryId",
-        "pricePerDay"
-      ]
+      "required": ["name", "image", "stockTotal", "categoryId", "pricePerDay"]
     },
     "AddRental": {
       "type": "object",
@@ -674,14 +676,114 @@
         },
         "daysRented": {
           "type": "number",
-          "example": 20
+          "example": 3
         }
       },
-      "required": [
-        "customerId",
-        "gameId",
-        "daysRented"
-      ]
+      "required": ["customerId", "gameId", "daysRented"]
+    }
+  },
+  "components": {
+    "@schemas": {
+      "AddCategory": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "category name",
+            "minLength": 3,
+            "example": "Terror"
+          }
+        }
+      },
+      "AddCustomer": {
+        "type": "object",
+        "required": ["name", "phone", "cpf", "birthday"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "customer name",
+            "example": "Messi"
+          },
+          "phone": {
+            "type": "string",
+            "description": "customer phone number",
+            "minLength": 10,
+            "maxLength": 11,
+            "example": "85988774466"
+          },
+          "cpf": {
+            "type": "string",
+            "description": "customer document CPF number",
+            "length": 11,
+            "example": "01234567890"
+          },
+          "birthday": {
+            "type": "date",
+            "description": "customer birthday",
+            "format": "YYYY-MM-DD",
+            "example": "1987-06-24"
+          }
+        }
+      },
+      "AddGame": {
+        "type": "object",
+        "required": [
+          "name",
+          "image",
+          "stockTotal",
+          "categoryId",
+          "pricePerDay"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "game name",
+            "example": "Jumanji"
+          },
+          "image": {
+            "type": "URL",
+            "description": "image game URL",
+            "example": "http://blogdebrinquedo.com.br/wp-content/uploads/2019/11/20191129prop-jumanji-board-game-1-1-collector-replica-01.jpg"
+          },
+          "stockTotal": {
+            "type": "integer",
+            "description": "game stock",
+            "example": 1
+          },
+          "categoryId": {
+            "type": "integer",
+            "description": "category of game",
+            "example": 4
+          },
+          "pricePerDay": {
+            "type": "integer",
+            "description": "rent price per day in cents",
+            "example": 1450
+          }
+        }
+      },
+      "AddRental": {
+        "type": "object",
+        "required": ["customerId", "gameId", "daysRented"],
+        "properties": {
+          "customerId": {
+            "type": "integer",
+            "description": "customer id",
+            "example": 1
+          },
+          "gameId": {
+            "type": "integer",
+            "description": "gamed id",
+            "example": 10
+          },
+          "daysRented": {
+            "type": "integer",
+            "description": "rental days",
+            "example": 3
+          }
+        }
+      }
     }
   }
 }

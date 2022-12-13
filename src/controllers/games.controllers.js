@@ -20,6 +20,10 @@ export async function gamesList(req, res) {
           ${whereSQL} ${orderPagesSQL}`
     );
 
+    /* #swagger.responses[200] = {
+            description: 'Games list successfully obtained.',
+            schema: { $ref: '#/definitions/GamesList' }
+    } */
     return res.send(games.rows);
   } catch (error) {
     console.log(
@@ -35,8 +39,9 @@ export async function gamesInsert(req, res) {
     #swagger.description = 'Route for insert a new game'
     #swagger.parameters['Add Game'] = {
       in: 'body',
+      required: 'true',
       description: 'Add a new game',      
-      schema: { $ref: '#/definitions/AddGame' }
+      schema: { $ref: '#/components/@schemas/AddGame' }
     }
   */
 
@@ -50,9 +55,15 @@ export async function gamesInsert(req, res) {
     );
 
     if (result.rowCount === 0) {
+      /* #swagger.responses[409] = {
+            description: 'Game already exist',
+      } */
       return res.sendStatus(409);
     }
 
+    /* #swagger.responses[201] = {
+            description: 'New game add with success',
+    } */
     return res.sendStatus(201);
   } catch (error) {
     console.log(

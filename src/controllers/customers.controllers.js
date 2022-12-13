@@ -17,6 +17,10 @@ export async function customersList(req, res) {
       `SELECT id, name, phone, cpf, birthday::text
         FROM customers ${whereSQL} ${orderPagesSQL}`
     );
+    /* #swagger.responses[200] = {
+            description: 'Customers list successfully obtained.',
+            schema: { $ref: '#/definitions/CustomersList' }
+    } */
     return res.send(customers.rows);
   } catch (error) {
     console.log(
@@ -40,8 +44,15 @@ export async function getCustomer(req, res) {
       [id]
     );
     if (customer.rowCount === 0) {
+      /* #swagger.responses[404] = {
+            description: 'Customer don`t found',
+      } */
       return res.sendStatus(404);
     }
+
+    /* #swagger.responses[200] = {
+            description: 'Customer successfully obtained.',
+    } */
     return res.send(customer.rows[0]);
   } catch (error) {
     console.log(
@@ -57,8 +68,9 @@ export async function customerInsert(req, res) {
     #swagger.description = 'Route for insert a new customer'
     #swagger.parameters['Add Customer'] = {
       in: 'body',
+      required: 'true',
       description: 'Add a new customer',        
-      schema: { $ref: '#/definitions/AddCustomer' }
+      schema: { $ref: '#/components/@schemas/AddCustomer' }
     }
   */
 
@@ -72,9 +84,15 @@ export async function customerInsert(req, res) {
     );
 
     if (result.rowCount === 0) {
+      /* #swagger.responses[409] = {
+            description: 'CPF already used by another customer',
+      } */
       return res.sendStatus(409);
     }
 
+    /* #swagger.responses[201] = {
+            description: 'New customer add with success',
+    } */
     return res.sendStatus(201);
   } catch (error) {
     console.log(
@@ -90,8 +108,9 @@ export async function customerUpdate(req, res) {
     #swagger.description = 'Route for update customer data.'
     #swagger.parameters['Update Customer'] = {
       in: 'body',
+      required: 'true',
       description: 'Update customers data by id',      
-      schema: { $ref: '#/definitions/AddCustomer' }
+      schema: { $ref: '#/components/@schemas/AddCustomer' }
     }
   */
 
@@ -105,6 +124,9 @@ export async function customerUpdate(req, res) {
     );
 
     if (cpfDuplicate.rowCount !== 0) {
+      /* #swagger.responses[409] = {
+            description: 'CPF already used by another customer',
+      } */
       return res.sendStatus(409);
     }
 
@@ -115,9 +137,15 @@ export async function customerUpdate(req, res) {
     );
 
     if (result.rowCount !== 1) {
+      /* #swagger.responses[400] = {
+            description: 'Update error',
+      } */
       return res.sendStatus(400);
     }
 
+    /* #swagger.responses[200] = {
+            description: 'Customer updated with success',
+    } */
     return res.sendStatus(200);
   } catch (error) {
     console.log(

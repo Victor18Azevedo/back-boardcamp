@@ -7,6 +7,10 @@ export async function rentalsList(req, res) {
   /*
     #swagger.tags = ['Rentals']
     #swagger.description = 'Route for list rentals.'
+    #swagger.parameters['desc'] = {
+      in: 'query',
+      type: 'boolean',
+    }
   */
 
   const orderPagesSQL = req.orderPagesSQL;
@@ -47,6 +51,10 @@ export async function rentalsList(req, res) {
       },
     }));
 
+    /* #swagger.responses[200] = {
+            description: 'Rentals list successfully obtained.',
+            schema: { $ref: '#/definitions/RentalsList' }
+    } */
     return res.send(rentals);
   } catch (error) {
     console.log(
@@ -62,8 +70,9 @@ export async function rentalInsert(req, res) {
     #swagger.description = 'Route for create a new rental.'
     #swagger.parameters['New Rental'] = {
       in: 'body',
+      required: 'true',
       description: 'Open a new rental',      
-      schema: { $ref: '#/definitions/AddRental' }
+      schema: { $ref: '#/components/@schemas/AddRental' }
     }
   */
 
@@ -92,6 +101,9 @@ export async function rentalInsert(req, res) {
       ]
     );
 
+    /* #swagger.responses[201] = {
+            description: 'New rental add with success',
+    } */
     return res.sendStatus(201);
   } catch (error) {
     console.log(
@@ -124,6 +136,9 @@ export async function rentalClose(req, res) {
       [returnDate.format("YYYY-MM-DD"), delayFee, id]
     );
 
+    /* #swagger.responses[200] = {
+            description: 'Rental closed with success',
+    } */
     return res.sendStatus(200);
   } catch (error) {
     console.log(
@@ -143,6 +158,10 @@ export async function rentalDelete(req, res) {
 
   try {
     await connection.query(`DELETE FROM rentals WHERE "id" = $1`, [id]);
+
+    /* #swagger.responses[200] = {
+            description: 'Rental deleted with success',
+    } */
     return res.sendStatus(200);
   } catch (error) {
     console.log(
